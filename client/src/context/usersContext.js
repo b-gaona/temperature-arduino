@@ -33,7 +33,7 @@ function UsersProvider({ children }) {
       }, 150);
     } catch (error) {
       setIsLoading(false);
-      console.log(error);
+      //console.log(error);
     }
   };
 
@@ -51,7 +51,7 @@ function UsersProvider({ children }) {
         setCurrentData(before);
       }
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   };
 

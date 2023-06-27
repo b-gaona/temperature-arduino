@@ -9,7 +9,6 @@ function Table({ data, config, keyFn, loader }) {
   });
 
   const renderedRows = data.map((row, index) => {
-    console.log(row);
     const renderedColumns = config.map((col) => {
       return (
         <td key={col.label} className="p-3">

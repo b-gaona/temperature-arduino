@@ -12,7 +12,6 @@ function LoginPage() {
   const handleSubmit = async (info) => {
     setUser(info);
     const flag = await handleLogUser(info);
-    console.log(flag);
     if (!flag) {
       setErrorMessage(true);
     }
