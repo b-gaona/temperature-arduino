@@ -5,23 +5,24 @@ import LoginPage from "./pages/LoginPage";
 import CardsPage from "./pages/CardsPage";
 import { Fragment } from "react";
 import { UsersProvider } from "./context/usersContext";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   return (
     <UsersProvider>
       <Fragment>
-        <Route path="/history">
+        <ProtectedRoute path="/history" redirectPath="/login">
           <TablePage></TablePage>
-        </Route>
+        </ProtectedRoute>
         <Route path="/register">
           <RegisterPage></RegisterPage>
         </Route>
         <Route path="/login">
           <LoginPage></LoginPage>
         </Route>
-        <Route path="/">
+        <ProtectedRoute path="/" redirectPath="/login">
           <CardsPage></CardsPage>
-        </Route>
+        </ProtectedRoute>
       </Fragment>
     </UsersProvider>
   );
