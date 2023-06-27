@@ -1,9 +1,17 @@
-const ProtectedRoute = ({ isAllowed, redirectPath = "/landing", children }) => {
-  if (!isAllowed) {
-    return <Navigate to={redirectPath} replace />;
-  }
+import useNavigation from "../hooks/use-navigation";
+import useUsersContext from "../hooks/use-users-context";
 
-  return children ? children : <Outlet />;
-};
+function ProtectedRoute({ path, children, redirectPath }) {
+  const { currentPath, navigate } = useNavigation();
+  const { user } = useUsersContext();
+
+  if (!user.nombre || !user.clave) {
+    navigate(redirectPath);
+  }
+  else if (path === currentPath) {
+    return children;
+  }
+  return null;
+}
 
 export default ProtectedRoute;
