@@ -57,7 +57,7 @@ function UsersProvider({ children }) {
 
   const handleLogUser = async (info) => {
     const res = await axios.post(
-      "http://localhost:8000/api/users/verify",
+      "https://temperature-monitoring.onrender.com/api/users/verify",
       info
     );
     if (res.data) {
