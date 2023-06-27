@@ -1,11 +1,9 @@
 import { createContext, useCallback, useState } from "react";
 import axios from "axios";
-import useNavigation from "../hooks/use-navigation";
 
 const UsersContext = createContext();
 
 function UsersProvider({ children }) {
-  const {navigate} = useNavigation();
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState([]);
   const [currentData, setCurrentData] = useState([]);
@@ -44,7 +42,9 @@ function UsersProvider({ children }) {
     try {
       const before = data;
       setCurrentData([]);
-      const res = await axios.get(`https://temperature-monitoring.onrender.com/api/data/current`);
+      const res = await axios.get(
+        `https://temperature-monitoring.onrender.com/api/data/current`
+      );
       if (res.data) {
         setCurrentData(res.data);
       } else {
@@ -57,15 +57,13 @@ function UsersProvider({ children }) {
 
   const handleLogUser = async (info) => {
     const res = await axios.post(
-      "https://temperature-monitoring.onrender.com/api/users/verify",
+      "http://localhost:8000/api/users/verify",
       info
     );
     if (res.data) {
       setUser(res.data);
-      navigate("/");
-    }else{
-      return false;
     }
+    return res.data;
   };
 
   // eslint-disable-next-line

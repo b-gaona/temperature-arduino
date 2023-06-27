@@ -4,16 +4,20 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import useUsersContext from "../hooks/use-users-context";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function LoginPage() {
   const { handleLogUser, user, setUser } = useUsersContext();
   const [errorMessage, setErrorMessage] = useState(false);
+  const navigate = useNavigate();
 
   const handleSubmit = async (info) => {
     setUser(info);
     const flag = await handleLogUser(info);
     if (!flag) {
       setErrorMessage(true);
+    } else {
+      navigate("/");
     }
   };
 
@@ -39,7 +43,11 @@ function LoginPage() {
       <Header />
       <div className="flex bg-white w-100 justify-center items-center">
         <Panel className="bg-gray-50 px-6 rounded-xl w-full sm:w-1/3">
-          {errorMessage && <h1 className="bg-red-500 w-full text-center border-red-600 border-2 p-2 text-white mb-4 rounded-md font-semibold">Error al inciar sesión</h1>}
+          {errorMessage && (
+            <h1 className="bg-red-500 w-full text-center border-red-600 border-2 p-2 text-white mb-4 rounded-md font-semibold">
+              Error al inciar sesión
+            </h1>
+          )}
           <Form onSubmit={handleSubmit} config={config} objectConfig={user}>
             <h1 className="text-3xl text-center">Inicio de sesión</h1>
           </Form>

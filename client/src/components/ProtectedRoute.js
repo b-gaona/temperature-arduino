@@ -1,17 +1,13 @@
-import useNavigation from "../hooks/use-navigation";
 import useUsersContext from "../hooks/use-users-context";
+import { Navigate, Outlet } from "react-router-dom";
 
-function ProtectedRoute({ path, children, redirectPath }) {
-  const { currentPath, navigate } = useNavigation();
+function ProtectedRoute({ redirectPath = "/login", children }) {
   const { user } = useUsersContext();
 
   if (!user.nombre || !user.clave) {
-    navigate(redirectPath);
+    return <Navigate to={redirectPath} replace />;
   }
-  else if (path === currentPath) {
-    return children;
-  }
-  return null;
+  return children ? children : <Outlet />;
 }
 
 export default ProtectedRoute;

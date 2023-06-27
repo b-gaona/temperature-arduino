@@ -6,8 +6,8 @@ import Footer from "../components/Footer";
 import moment from "moment";
 import "moment/locale/es";
 import useUsersContext from "../hooks/use-users-context";
-import Link from "../components/Link";
 import Button from "../components/Button";
+import { Link } from "react-router-dom";
 
 function TablePage() {
   const { data, setData, stableFetchData } = useUsersContext();
@@ -18,7 +18,9 @@ function TablePage() {
 
   function fetchData() {
     //Listen for future events
-    const eventSource = new EventSource("https://temperature-monitoring.onrender.com/api/events");
+    const eventSource = new EventSource(
+      "https://temperature-monitoring.onrender.com/api/events"
+    );
 
     function updateMessage(message) {
       //If someone sends many objects in a row

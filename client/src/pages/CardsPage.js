@@ -1,12 +1,12 @@
 import Footer from "../components/Footer";
 import Header from "../components/Header";
-import Link from "../components/Link";
 import Button from "../components/Button";
 import Panel from "../components/Panel";
 import moment from "moment";
 import "moment/locale/es";
 import { useEffect, useState } from "react";
 import useUsersContext from "../hooks/use-users-context";
+import { Link } from "react-router-dom";
 
 function CardsPage() {
   const [currDate, setCurrDate] = useState(
@@ -41,7 +41,9 @@ function CardsPage() {
           </h1>
           <h1 className="text-lg font-semibold">
             Fecha:{" "}
-            <span className="font-normal">{moment(element.fecha).local("es").format("LLL:ss")}</span>
+            <span className="font-normal">
+              {moment(element.fecha).local("es").format("LLL:ss")}
+            </span>
           </h1>
         </div>
       </Panel>
@@ -84,7 +86,9 @@ function CardsPage() {
             </Button>
           </div>
         </div>
-        <div className="grid grid-cols-1 gap-10 mt-5 sm:grid-cols-2">{renderedPanels}</div>
+        <div className="grid grid-cols-1 gap-10 mt-5 sm:grid-cols-2">
+          {renderedPanels}
+        </div>
       </main>
       <Footer />
     </div>
