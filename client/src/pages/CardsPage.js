@@ -39,6 +39,10 @@ function CardsPage() {
             Índice de calor:{" "}
             <span className="font-normal">{element.indice_calor}</span>
           </h1>
+          <h1 className="text-lg font-semibold">
+            Fecha:{" "}
+            <span className="font-normal">{moment(element.fecha).local("es").format("LLL:ss")}</span>
+          </h1>
         </div>
       </Panel>
     );

@@ -38,7 +38,7 @@ function RegisterPage() {
     setAddUser(true);
     //Send user to the database
     try {
-      await axios.post("http://192.168.137.1:8000/api/users/add", user);
+      await axios.post("https://temperature-monitoring.onrender.com/api/users/add", user);
       return true;
     } catch (error) {
       return false;

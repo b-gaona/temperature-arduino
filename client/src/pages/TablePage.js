@@ -18,7 +18,7 @@ function TablePage() {
 
   function fetchData() {
     //Listen for future events
-    const eventSource = new EventSource("http://192.168.137.1:8000/api/events");
+    const eventSource = new EventSource("https://temperature-monitoring.onrender.com/api/events");
 
     function updateMessage(message) {
       //If someone sends many objects in a row
