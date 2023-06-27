@@ -1,13 +1,19 @@
 import { createContext, useCallback, useState } from "react";
 import axios from "axios";
+import useNavigation from "../hooks/use-navigation";
 
 const UsersContext = createContext();
 
 function UsersProvider({ children }) {
+  const {navigate} = useNavigation();
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState([]);
   const [currentData, setCurrentData] = useState([]);
   const [page, setPage] = useState(1);
+  const [user, setUser] = useState({
+    nombre: "",
+    clave: "",
+  });
 
   const fetchData = async () => {
     try {
@@ -15,7 +21,7 @@ function UsersProvider({ children }) {
       setIsLoading(true);
       setData([]);
       const res = await axios.get(
-        `http://192.168.137.1:8000/api/data?page=${page}&limit=15`
+        `https://temperature-monitoring.onrender.com/api/data?page=${page}&limit=15`
       );
       setTimeout(() => {
         if (res.data) {
@@ -38,7 +44,7 @@ function UsersProvider({ children }) {
     try {
       const before = data;
       setCurrentData([]);
-      const res = await axios.get(`http://192.168.137.1:8000/api/data/current`);
+      const res = await axios.get(`https://temperature-monitoring.onrender.com/api/data/current`);
       if (res.data) {
         setCurrentData(res.data);
       } else {
@@ -46,6 +52,19 @@ function UsersProvider({ children }) {
       }
     } catch (error) {
       console.log(error);
+    }
+  };
+
+  const handleLogUser = async (info) => {
+    const res = await axios.post(
+      "https://temperature-monitoring.onrender.com/api/users/verify",
+      info
+    );
+    if (res.data) {
+      setUser(res.data);
+      navigate("/");
+    }else{
+      return false;
     }
   };
 
@@ -58,6 +77,9 @@ function UsersProvider({ children }) {
     setData,
     setIsLoading,
     setPage,
+    handleLogUser,
+    setUser,
+    user,
     data,
     isLoading,
     page,
