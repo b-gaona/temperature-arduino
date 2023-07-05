@@ -12,10 +12,10 @@ function App() {
       <Router>
         <Routes>
           <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
           <Route element={<ProtectedRoute />}>
             <Route path="/history" element={<TablePage />} />
             <Route index path="/" element={<CardsPage />} />
+            <Route path="/register" element={<RegisterPage />} />
           </Route>
           <Route path="*" element={<LoginPage />} />
         </Routes>

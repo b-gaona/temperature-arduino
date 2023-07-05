@@ -90,6 +90,11 @@ function CardsPage() {
           {renderedPanels}
         </div>
       </main>
+      <div className="flex justify-center mt-3">
+        <p className="text-center">
+          ¿Quieres agregar a nuevos usuarios? <a href="/register" className="text-emerald-600 hover:text-emerald-800 underline ease-in duration-100">Regístralo aquí</a>
+        </p>
+      </div>
       <Footer />
     </div>
   );

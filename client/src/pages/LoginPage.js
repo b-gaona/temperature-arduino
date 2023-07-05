@@ -53,11 +53,6 @@ function LoginPage() {
           </Form>
         </Panel>
       </div>
-      <div className="flex justify-center mt-3">
-        <p className="text-center">
-          ¿No tienes una sesión? <a href="/register" className="text-emerald-600 hover:text-emerald-800 underline ease-in duration-100">Regístrate aquí</a>
-        </p>
-      </div>
       <Footer />
     </div>
   );

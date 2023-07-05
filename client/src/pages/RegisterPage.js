@@ -140,17 +140,6 @@ function RegisterPage() {
         </Panel>
         {showModal && modal}
       </div>
-      <div className="flex justify-center mt-3">
-        <p className="text-center">
-          ¿Ya cuentas con una sesión?{" "}
-          <a
-            href="/login"
-            className="text-emerald-600 hover:text-emerald-800 underline ease-in duration-100"
-          >
-            Inicia sesión aquí
-          </a>
-        </p>
-      </div>
       <Footer />
     </div>
   );
