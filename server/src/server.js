@@ -21,6 +21,7 @@ async function startServer() {
     });
   } else {
     server.listen(PORT, () => {
+      console.log(process.env.IP_ADDRESS);
       const address = server.address();
       console.log(`Server listening on ${address.address}:${PORT}`);
     });
