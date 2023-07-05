@@ -13,6 +13,7 @@ const server = http.createServer(app);
 
 async function startServer() {
   await mongoConnect();
+  console.log(`${process.env.IP_ADDRESS}:${process.env.PORT}`);
 
   if (IP_ADDRESS === "192.168.137.1") {
     server.listen(PORT, IP_ADDRESS, () => {
@@ -21,7 +22,6 @@ async function startServer() {
     });
   } else {
     server.listen(PORT, () => {
-      console.log(process.env.IP_ADDRESS);
       const address = server.address();
       console.log(`Server listening on ${address.address}:${PORT}`);
     });
