@@ -38,7 +38,10 @@ function RegisterPage() {
     setAddUser(true);
     //Send user to the database
     try {
-      await axios.post("https://temperature-monitoring.onrender.com/api/users/add", user);
+      await axios.post(
+        "https://temperature-monitoring.onrender.com/api/users/add",
+        user
+      );
       return true;
     } catch (error) {
       return false;
@@ -136,6 +139,17 @@ function RegisterPage() {
           </Form>
         </Panel>
         {showModal && modal}
+      </div>
+      <div className="flex justify-center mt-3">
+        <p className="text-center">
+          ¿Ya cuentas con una sesión?{" "}
+          <a
+            href="/login"
+            className="text-emerald-600 hover:text-emerald-800 underline ease-in duration-100"
+          >
+            Inicia sesión aquí
+          </a>
+        </p>
       </div>
       <Footer />
     </div>
