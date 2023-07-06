@@ -5,7 +5,6 @@ const morgan = require("morgan");
 const path = require("path");
 
 const api = require("./routes/api");
-const { getCurrent } = require("./models/data.model");
 
 const app = express();
 
