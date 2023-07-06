@@ -22,7 +22,7 @@ function CardsPage() {
     return (
       <Panel
         key={element._id}
-        className="py-8 rounded-lg shadow-md shadow-gray-400"
+        className="py-8 rounded-lg shadow-md shadow-gray-400 w-96"
       >
         <div className="flex flex-col justify-center items-center h-full">
           <h1 className="text-lg font-semibold text-center">
@@ -65,34 +65,30 @@ function CardsPage() {
           </p>
           <div className="flex justify-end items-center gap-5">
             <Button className="rounded-md" primary>
-              <Link
-                activeClassName="font-bold border-l-4 border-blue-500 pl-2"
-                className="text-white"
-                key="Ver historial"
-                to="/history"
-              >
+              <Link className="text-white" key="Ver historial" to="/history">
                 Ver historial
               </Link>
             </Button>
             <Button className="rounded-md" onClick={handleClick} secondary>
-              <Link
-                activeClassName="font-bold border-l-4 border-blue-500 pl-2"
-                className="text-white"
-                key="Recargar datos"
-                to="/"
-              >
+              <Link className="text-white" key="Recargar datos" to="/">
                 Recargar datos
               </Link>
             </Button>
           </div>
         </div>
-        <div className="grid grid-cols-1 gap-10 mt-5 sm:grid-cols-2">
+        <div className="flex gap-10 mt-5 flex-wrap justify-center items-center">
           {renderedPanels}
         </div>
       </main>
       <div className="flex justify-center mt-3">
         <p className="text-center">
-          ¿Quieres agregar a nuevos usuarios? <a href="/register" className="text-emerald-600 hover:text-emerald-800 underline ease-in duration-100">Regístralo aquí</a>
+          ¿Quieres agregar a nuevos usuarios?{" "}
+          <Link
+            to="/register"
+            className="text-emerald-600 hover:text-emerald-800 underline ease-in duration-100"
+          >
+            Regístralo aquí
+          </Link>
         </p>
       </div>
       <Footer />

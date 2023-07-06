@@ -96,7 +96,6 @@ function TablePage() {
         <div className="flex justify-center sm:justify-end items-center mx-5 mb-7">
           <Button className="rounded-md" primary>
             <Link
-              activeClassName="font-bold border-l-4 border-blue-500 pl-2"
               className="text-white"
               key="Ver parámetros actuales"
               to="/"

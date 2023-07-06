@@ -6,6 +6,7 @@ import Button from "../components/Button";
 import Modal from "../components/Modal";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import { Link } from "react-router-dom";
 
 function RegisterPage() {
   const objectConfig = {
@@ -105,14 +106,6 @@ function RegisterPage() {
 
   const modal = (
     <Modal onClose={handleClose} actionBar={actionBar}>
-      <div className="flex justify-end">
-        <Button
-          className="w-8 font-semibold text-gray-500 hover:text-gray-700 border-0"
-          onClick={handleClose}
-        >
-          X
-        </Button>
-      </div>
       {addUser && showMessage}
       <div className="flex justify-between">
         <div className="flex flex-col gap-4">
@@ -139,6 +132,16 @@ function RegisterPage() {
           </Form>
         </Panel>
         {showModal && modal}
+      </div>
+      <div className="flex justify-center mt-3">
+        <p className="text-center">
+          <Link
+            to="/"
+            className="text-emerald-600 hover:text-emerald-800 underline ease-in duration-100"
+          >
+            Volver a la página de inicio
+          </Link>
+        </p>
       </div>
       <Footer />
     </div>
