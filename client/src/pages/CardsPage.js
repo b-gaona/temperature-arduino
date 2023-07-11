@@ -5,18 +5,21 @@ import Panel from "../components/Panel";
 import moment from "moment";
 import "moment/locale/es";
 import { useEffect, useState } from "react";
-import useUsersContext from "../hooks/use-users-context";
+import useDataContext from "../hooks/use-data-context";
 import { Link } from "react-router-dom";
+import useServersContext from "../hooks/use-servers-context";
 
 function CardsPage() {
   const [currDate, setCurrDate] = useState(
     moment(new Date()).local("es").format("LLL:ss")
   );
-  const { stableFetchCurrentData, currentData } = useUsersContext();
+  const { stableFetchCurrentData, currentData } = useDataContext();
+  const { servers, stableFetchServers } = useServersContext();
 
   useEffect(() => {
     stableFetchCurrentData();
-  }, [stableFetchCurrentData, currDate]);
+    stableFetchServers();
+  }, [stableFetchCurrentData, stableFetchServers, currDate]);
 
   const renderedPanels = currentData.map((element) => {
     return (
@@ -50,6 +53,22 @@ function CardsPage() {
     );
   });
 
+  const renderedServers = servers.map(({ server, status }) => {
+    return (
+      <tr
+        className={`${
+          status ? "bg-green-500" : "bg-red-500"
+        } border-gray-800 border-2`}
+        key={server}
+      >
+        <td className="px-4 py-2">{server}</td>
+        <td className="px-4 py-2">
+          {status ? <p>Encendido</p> : <p>Apagado</p>}
+        </td>
+      </tr>
+    );
+  });
+
   const handleClick = () => {
     setCurrDate(moment(new Date()).local("es").format("LLL:ss"));
   };
@@ -79,15 +98,34 @@ function CardsPage() {
         <div className="flex gap-10 mt-5 flex-wrap justify-center items-center">
           {renderedPanels}
         </div>
+        <hr className="bg-black h-1 my-12"></hr>
+        <div className="flex flex-col justify-center items-center">
+          <table className="border-2 border-gray-800 rounded-lg">
+            <thead>
+              <tr>
+                <th className="py-2">Servidor</th>
+                <th className="py-2">Estado</th>
+              </tr>
+            </thead>
+            <tbody>{renderedServers}</tbody>
+          </table>
+        </div>
       </main>
-      <div className="flex justify-center mt-3">
+      <div className="flex items-center justify-center mt-3 gap-9 mx-5">
         <p className="text-center">
-          ¿Quieres agregar a nuevos usuarios?{" "}
           <Link
-            to="/register"
-            className="text-emerald-600 hover:text-emerald-800 underline ease-in duration-100"
+            to="/users"
+            className="font-semibold text-md text-emerald-600 hover:text-emerald-800 underline ease-in duration-100"
           >
-            Regístralo aquí
+            Ver usuarios
+          </Link>
+        </p>
+        <p className="text-center">
+          <Link
+            to="/servers"
+            className="font-semibold text-md text-emerald-600 hover:text-emerald-800 underline ease-in duration-100"
+          >
+            Ver servidores
           </Link>
         </p>
       </div>
