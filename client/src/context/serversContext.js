@@ -10,7 +10,7 @@ function ServersProvider({ children }) {
   const fetchServers = async () => {
     try {
       setIsLoading(true);
-      const res = await axios.get(`http://localhost:8000/api/servers`);
+      const res = await axios.get(`https://temperature-monitoring.onrender.com/api/servers`);
       if (res.data) {
         setServers(res.data);
       }
@@ -24,7 +24,7 @@ function ServersProvider({ children }) {
   const createServer = async (server) => {
     try {
       const res = await axios.post(
-        "http://localhost:8000/api/servers/add",
+        "https://temperature-monitoring.onrender.com/api/servers/add",
         server
       );
       const updatedServers = [...servers, res.data];
@@ -37,7 +37,7 @@ function ServersProvider({ children }) {
 
   const deleteServerById = async (id) => {
     try {
-      await axios.delete(`http://localhost:8000/api/servers/delete/${id}`);
+      await axios.delete(`https://temperature-monitoring.onrender.com/api/servers/delete/${id}`);
       const updatedServers = servers.filter((server) => {
         return server._id !== id;
       });
@@ -52,7 +52,7 @@ function ServersProvider({ children }) {
     try {
       let editedServer = {};
       const res = await axios.put(
-        `http://localhost:8000/api/servers/update/${id}`,
+        `https://temperature-monitoring.onrender.com/api/servers/update/${id}`,
         server
       );
       const updateServers = servers.map((server) => {

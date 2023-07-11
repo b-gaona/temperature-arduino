@@ -14,7 +14,7 @@ function UsersProvider({ children }) {
   const fetchUsers = async () => {
     try {
       setIsLoading(true);
-      const res = await axios.get(`http://localhost:8000/api/users`);
+      const res = await axios.get(`https://temperature-monitoring.onrender.com/api/users`);
       if (res.data) {
         setUsers(res.data);
       }
@@ -38,7 +38,7 @@ function UsersProvider({ children }) {
 
   const createUser = async (user) => {
     try {
-      const res = await axios.post("http://localhost:8000/api/users/add", user);
+      const res = await axios.post("https://temperature-monitoring.onrender.com/api/users/add", user);
       const updatedUsers = [...users, res.data];
       setUsers(updatedUsers);
       return true;
@@ -49,7 +49,7 @@ function UsersProvider({ children }) {
 
   const deleteUserById = async (id) => {
     try {
-      await axios.delete(`http://localhost:8000/api/users/delete/${id}`);
+      await axios.delete(`https://temperature-monitoring.onrender.com/api/users/delete/${id}`);
       const updatedUsers = users.filter((user) => {
         return user._id !== id;
       });
@@ -64,7 +64,7 @@ function UsersProvider({ children }) {
     try {
       let editedUser = {};
       const res = await axios.put(
-        `http://localhost:8000/api/users/update/${id}`,
+        `https://temperature-monitoring.onrender.com/api/users/update/${id}`,
         user
       );
       const updateUsers = users.map((user) => {
