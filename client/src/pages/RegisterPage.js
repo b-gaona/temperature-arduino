@@ -51,7 +51,7 @@ function RegisterPage() {
 
   const config = [
     {
-      label: "Nombre completo",
+      label: "Nombre de usuario",
       input: {
         type: "text",
         property: "nombre",
@@ -110,7 +110,7 @@ function RegisterPage() {
       <div className="flex justify-between">
         <div className="flex flex-col gap-4">
           <div>
-            <h2 className="text-lg font-semibold">Nombre completo</h2>
+            <h2 className="text-lg font-semibold">Nombre de usuario</h2>
             <p>{user.nombre}</p>
           </div>
           <div>
