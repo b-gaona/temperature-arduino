@@ -1,8 +1,8 @@
 import { GoArrowRight, GoArrowLeft } from "react-icons/go";
-import useUsersContext from "../hooks/use-users-context";
+import useDataContext from "../hooks/use-data-context";
 
 function Paginator() {
-  const { page, setPage } = useUsersContext();
+  const { page, setPage } = useDataContext();
   const handleLeftClick = () => {
     setPage((curr) => {
       if (curr > 1) {
