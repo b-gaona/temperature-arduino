@@ -5,52 +5,22 @@ const UsersContext = createContext();
 
 function UsersProvider({ children }) {
   const [isLoading, setIsLoading] = useState(false);
-  const [data, setData] = useState([]);
-  const [currentData, setCurrentData] = useState([]);
-  const [page, setPage] = useState(1);
+  const [users, setUsers] = useState([]);
   const [user, setUser] = useState({
     nombre: "",
     clave: "",
   });
 
-  const fetchData = async () => {
+  const fetchUsers = async () => {
     try {
-      const before = data;
       setIsLoading(true);
-      setData([]);
-      const res = await axios.get(
-        `https://temperature-monitoring.onrender.com/api/data?page=${page}&limit=15`
-      );
-      setTimeout(() => {
-        if (res.data) {
-          setData(res.data);
-        } else {
-          setData(before);
-        }
-        setIsLoading(false);
-      }, 150);
+      const res = await axios.get(`http://localhost:8000/api/users`);
+      if (res.data) {
+        setUsers(res.data);
+      }
+      setIsLoading(false);
     } catch (error) {
       setIsLoading(false);
-      //console.log(error);
-    }
-  };
-
-  // eslint-disable-next-line
-  const stableFetchData = useCallback(fetchData, [page]);
-
-  const fetchCurrentData = async () => {
-    try {
-      const before = data;
-      setCurrentData([]);
-      const res = await axios.get(
-        `https://temperature-monitoring.onrender.com/api/data/current`
-      );
-      if (res.data) {
-        setCurrentData(res.data);
-      } else {
-        setCurrentData(before);
-      }
-    } catch (error) {
       //console.log(error);
     }
   };
@@ -66,22 +36,65 @@ function UsersProvider({ children }) {
     return res.data;
   };
 
-  // eslint-disable-next-line
-  const stableFetchCurrentData = useCallback(fetchCurrentData, [page]);
+  const createUser = async (user) => {
+    try {
+      const res = await axios.post("http://localhost:8000/api/users/add", user);
+      const updatedUsers = [...users, res.data];
+      setUsers(updatedUsers);
+      return true;
+    } catch (error) {
+      return false;
+    }
+  };
+
+  const deleteUserById = async (id) => {
+    try {
+      await axios.delete(`http://localhost:8000/api/users/delete/${id}`);
+      const updatedUsers = users.filter((user) => {
+        return user._id !== id;
+      });
+      setUsers(updatedUsers);
+      return true;
+    } catch (error) {
+      return false;
+    }
+  };
+
+  const editUserById = async (id, user) => {
+    try {
+      let editedUser = {};
+      const res = await axios.put(
+        `http://localhost:8000/api/users/update/${id}`,
+        user
+      );
+      const updateUsers = users.map((user) => {
+        if (user._id === id) {
+          editedUser = JSON.parse(res.request.response);
+          return { ...user, ...res.data };
+        }
+        return user;
+      });
+
+      setUsers(updateUsers);
+      return editedUser;
+    } catch (error) {
+      return false;
+    }
+  };
+
+  const stableFetchUsers = useCallback(fetchUsers, []);
 
   const valueToShare = {
-    stableFetchData,
-    stableFetchCurrentData,
-    setData,
-    setIsLoading,
-    setPage,
+    stableFetchUsers,
     handleLogUser,
+    createUser,
+    editUserById,
+    deleteUserById,
+    setIsLoading,
     setUser,
-    user,
-    data,
     isLoading,
-    page,
-    currentData,
+    users,
+    user,
   };
 
   return (
