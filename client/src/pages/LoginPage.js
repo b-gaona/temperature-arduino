@@ -23,7 +23,7 @@ function LoginPage() {
 
   const config = [
     {
-      label: "Nombre completo",
+      label: "Nombre de usuario",
       input: {
         type: "text",
         property: "nombre",
