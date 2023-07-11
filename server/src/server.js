@@ -15,6 +15,7 @@ async function doFetchToServers() {
     try {
       const res = await fetch(server);
 
+      console.log(`Fetch to ${server} : ${res.status}`);
       if (res.status !== 200) {
         await Server.updateOne(
           {
