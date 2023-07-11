@@ -5,12 +5,12 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import moment from "moment";
 import "moment/locale/es";
-import useUsersContext from "../hooks/use-users-context";
+import useDataContext from "../hooks/use-data-context";
 import Button from "../components/Button";
 import { Link } from "react-router-dom";
 
 function TablePage() {
-  const { data, setData, stableFetchData } = useUsersContext();
+  const { data, setData, stableFetchData } = useDataContext();
 
   useEffect(() => {
     stableFetchData();
