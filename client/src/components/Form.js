@@ -13,7 +13,7 @@ function Form({ config, objectConfig, onSubmit, children }) {
   const handleSelectChange = (option) => {
     const { label, value, property } = option;
     setUser((curr) => {
-      return { ...curr, [property]: value, [property+"_label"]: label};
+      return { ...curr, [property]: value, [property + "_label"]: label };
     });
   };
 
@@ -31,7 +31,7 @@ function Form({ config, objectConfig, onSubmit, children }) {
 
   const renderedItems = config.map((element) => {
     const {
-      input: { type, data, property },
+      input: { type, data, property, placeholder },
       label,
     } = element;
 
@@ -40,6 +40,7 @@ function Form({ config, objectConfig, onSubmit, children }) {
       currentValue: user[property],
       options: data,
       property,
+      placeholder,
     };
 
     const inpLogic = {
@@ -47,6 +48,7 @@ function Form({ config, objectConfig, onSubmit, children }) {
       type,
       value: user[property],
       onChange: handleInputChange,
+      placeholder,
     };
 
     const input =
