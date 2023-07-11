@@ -13,22 +13,23 @@ async function doFetchToServers() {
   const servers = await getAllServers({ skip: 0, limit: 0 });
   servers.forEach(async ({ server }) => {
     try {
+      console.log(`Fetch to ${server}\n`);
       const res = await fetch(server);
-
-      console.log(`Fetch to ${server} : ${res.status}`);
-      if (res.status !== 200) {
-        await Server.updateOne(
-          {
-            server,
-          },
-          { status: false },
-          {
-            upsert: true,
-          }
-        );
-        //TODO: Send the message via whatsapp
-        return;
-      }
+      console.log(`Status:${res.status}\n\n`);
+      
+      // if (res.status !== 200) {
+      //   await Server.updateOne(
+      //     {
+      //       server,
+      //     },
+      //     { status: false },
+      //     {
+      //       upsert: true,
+      //     }
+      //   );
+      //   //TODO: Send the message via whatsapp
+      //   return;
+      // }
       await Server.updateOne(
         {
           server,
@@ -73,7 +74,7 @@ async function startServer() {
   }
 
   // Schedule pings every minute
-  setInterval(doFetchToServers, 6000);
+  setInterval(doFetchToServers, 5000);
 }
 
 startServer();
