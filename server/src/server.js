@@ -72,7 +72,7 @@ async function startServer() {
   }
 
   // Schedule pings every minute
-  setInterval(doFetchToServers, 5000);
+  setInterval(doFetchToServers, 30000);
 }
 
 startServer();
