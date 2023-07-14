@@ -12,34 +12,34 @@ async function checkServerAvailability() {
   try {
     const servers = await Server.find({});
     console.log(servers);
-    for (const { server, status } of servers) {
+    for (const { server, estado } of servers) {
       console.log(`Checking server: ${server}`);
 
       try {
         const res = await fetch(server);
 
         if (res.status === 200) {
-          if (status === "Apagado") {
+          if (estado === "Apagado") {
             await Server.findOneAndUpdate(
               { server },
-              { $set: { status: "Encendido" } }
+              { $set: { estado: "Encendido" } }
             );
           }
           console.log(`Server ${server} is available`);
         } else {
-          if (status === "Encendido") {
+          if (estado === "Encendido") {
             await Server.findOneAndUpdate(
               { server },
-              { $set: { status: "Apagado" } }
+              { $set: { estado: "Apagado" } }
             );
           }
           console.log(`Server ${server} is not available`);
         }
       } catch (error) {
-        if (status === "Encendido") {
+        if (estado === "Encendido") {
           await Server.findOneAndUpdate(
             { server },
-            { $set: { status: "Apagado" } }
+            { $set: { estado: "Apagado" } }
           );
         }
         console.log(`Error occurred while checking server ${server}: ${error}`);

@@ -49,8 +49,8 @@ function ServersPage() {
     },
     {
       label: "Estado",
-      render: (data) => data.status,
-      sortValue: (data) => data.status,
+      render: (data) => data.estado,
+      sortValue: (data) => data.estado,
     },
     {
       label: "Acciones",

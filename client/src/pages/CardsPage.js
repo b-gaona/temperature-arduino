@@ -53,17 +53,17 @@ function CardsPage() {
     );
   });
 
-  const renderedServers = servers.map(({ server, status }) => {
+  const renderedServers = servers.map(({ server, estado }) => {
     return (
       <tr
         className={`${
-          status === "Encendido" ? "bg-green-500" : "bg-red-500"
+          estado === "Encendido" ? "bg-green-500" : "bg-red-500"
         } border-gray-800 border-2`}
         key={server}
       >
         <td className="px-4 py-2">{server}</td>
         <td className="px-4 py-2">
-          {status === "Encendido" ? <p>Encendido</p> : <p>Apagado</p>}
+          {estado === "Encendido" ? <p>Encendido</p> : <p>Apagado</p>}
         </td>
       </tr>
     );
