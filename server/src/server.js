@@ -16,9 +16,9 @@ async function checkServerAvailability() {
       console.log(`Checking server: ${server}`);
 
       try {
-        const res = await fetch(server);
+        const res = await axios.get(server);
 
-        if (res.status === 200) {
+        if (res.data) {
           if (estado === "Apagado") {
             await Server.findOneAndUpdate(
               { server },
