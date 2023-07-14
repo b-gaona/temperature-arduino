@@ -7,6 +7,7 @@ const app = require("./app");
 const { mongoConnect } = require("./services/mongo");
 
 const Server = require("./models/server.mongo");
+const axios = require ("axios");
 
 async function checkServerAvailability() {
   try {
