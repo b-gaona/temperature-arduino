@@ -49,7 +49,7 @@ function ServersPage() {
     },
     {
       label: "Estado",
-      render: (data) => (data.status ? "Encendido" : "Apagado"),
+      render: (data) => data.status,
       sortValue: (data) => data.status,
     },
     {

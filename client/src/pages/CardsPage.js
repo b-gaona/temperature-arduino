@@ -57,13 +57,13 @@ function CardsPage() {
     return (
       <tr
         className={`${
-          status ? "bg-green-500" : "bg-red-500"
+          status === "Encendido" ? "bg-green-500" : "bg-red-500"
         } border-gray-800 border-2`}
         key={server}
       >
         <td className="px-4 py-2">{server}</td>
         <td className="px-4 py-2">
-          {status ? <p>Encendido</p> : <p>Apagado</p>}
+          {status === "Encendido" ? <p>Encendido</p> : <p>Apagado</p>}
         </td>
       </tr>
     );
