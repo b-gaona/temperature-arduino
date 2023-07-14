@@ -5,10 +5,10 @@ const serverSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  status: {
-    type: Boolean,
+  estado: {
+    type: String,
     required: true,
-    default: true,
+    default: "Encendido",
   },
 });
 

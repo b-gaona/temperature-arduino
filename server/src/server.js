@@ -5,52 +5,50 @@ require("dotenv").config(); //To able the configurations in the .env file
 const app = require("./app");
 
 const { mongoConnect } = require("./services/mongo");
-const { getAllServers } = require("./models/server.model");
 
 const Server = require("./models/server.mongo");
 
-async function doFetchToServers() {
-  const servers = await getAllServers({ skip: 0, limit: 0 });
-  servers.forEach(async ({ server }) => {
-    try {
-      console.log(`Fetch to ${server}\n`);
-      const res = await fetch(server);
-      console.log(`Status:${res.status}\n\n`);
-      
-      // if (res.status !== 200) {
-      //   await Server.updateOne(
-      //     {
-      //       server,
-      //     },
-      //     { status: false },
-      //     {
-      //       upsert: true,
-      //     }
-      //   );
-      //   //TODO: Send the message via whatsapp
-      //   return;
-      // }
-      await Server.updateOne(
-        {
-          server,
-        },
-        { server, status: true },
-        {
-          upsert: true,
+async function checkServerAvailability() {
+  try {
+    const servers = await Server.find({});
+    console.log(servers);
+    for (const { server, status } of servers) {
+      console.log(`Checking server: ${server}`);
+
+      try {
+        const res = await fetch(server);
+
+        if (res.status === 200) {
+          if (status === "Apagado") {
+            await Server.findOneAndUpdate(
+              { server },
+              { $set: { status: "Encendido" } }
+            );
+          }
+          console.log(`Server ${server} is available`);
+        } else {
+          if (status === "Encendido") {
+            await Server.findOneAndUpdate(
+              { server },
+              { $set: { status: "Apagado" } }
+            );
+          }
+          console.log(`Server ${server} is not available`);
         }
-      );
-    } catch (error) {
-      await Server.updateOne(
-        {
-          server,
-        },
-        { server, status: false },
-        {
-          upsert: true,
+      } catch (error) {
+        if (status === "Encendido") {
+          await Server.findOneAndUpdate(
+            { server },
+            { $set: { status: "Apagado" } }
+          );
         }
-      );
+        console.log(`Error occurred while checking server ${server}: ${error}`);
+        console.log(`Server ${server} is not available`);
+      }
     }
-  });
+  } catch (error) {
+    console.log("Error occurred:", error);
+  }
 }
 
 const PORT = process.env.PORT || 8000; //To avoid conflict with the 3000 that's using React
@@ -74,7 +72,11 @@ async function startServer() {
   }
 
   // Schedule pings every minute
-  setInterval(doFetchToServers, 5000);
+  //setInterval(doFetchToServers, 10000);
+
+  setInterval(async () => {
+    await checkServerAvailability();
+  }, 5000);
 }
 
 startServer();
